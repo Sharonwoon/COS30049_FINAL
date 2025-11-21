@@ -943,7 +943,7 @@ body.body-chart3-active {
 /* Styles for the animated flight progress bar */
 .chart3-progress-bar-container {
   width: 80%;
-  margin: 1.5rem 0;
+  margin: 1.5rem auto;
   position: relative;
   height: 30px;
   display: flex;
