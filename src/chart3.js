@@ -29,43 +29,65 @@ function Chart3() {
   };
 
   const handleSubmit = async (e) => {
-  e.preventDefault();
-  setIsLoading(true);
-  setError('');
-  setPredictionResult(null);
-  setPredictedCategory('');
+    e.preventDefault();
+    setIsLoading(true);
+    setError('');
+    setPredictionResult(null);
+    setPredictedCategory('');
 
-  try {
-    const apiEndpoint = 'http://localhost:8000/predict';
+    try {
+      const apiEndpoint = 'http://localhost:8000/predict';
 
-    const submissionData = {
-      ...formData,
-      Flight_Status: 'On-time',
-      Departure_Time: new Date(formData.Departure_Time)
-        .toISOString()
-        .replace('T', ' ')
-        .substring(0, 19)
-    };
+      // Convert datetime-local format to DD/MM/YYYY HH:MM
+      const dateObj = new Date(formData.Departure_Time);
+      
+      // Check if date is valid
+      if (isNaN(dateObj.getTime())) {
+        setError('Invalid date selected');
+        setIsLoading(false);
+        return;
+      }
+      
+      const day = String(dateObj.getDate()).padStart(2, '0');
+      const month = String(dateObj.getMonth() + 1).padStart(2, '0');
+      const year = dateObj.getFullYear();
+      const hours = String(dateObj.getHours()).padStart(2, '0');
+      const minutes = String(dateObj.getMinutes()).padStart(2, '0');
+      const formattedDateTime = `${day}/${month}/${year} ${hours}:${minutes}`;
 
-    const response = await axios.post(apiEndpoint, submissionData);
-    const data = response.data;
+      const submissionData = {
+        Airline: formData.Airline,
+        Departure_Airport: formData.Departure_Airport,
+        Arrival_Airport: formData.Arrival_Airport,
+        Flight_Status: 'On-time',
+        Departure_Time: formattedDateTime
+      };
 
-    const chartData = Object.entries(data.probabilities).map(([key, value]) => ({
-      label: key,
-      value: value * 100
-    }));
+      console.log('📤 Sending to backend:', submissionData);
+      console.log('📅 Formatted date:', formattedDateTime);
 
-    setPredictionResult(chartData);
-    setPredictedCategory(data.prediction);
+      const response = await axios.post(apiEndpoint, submissionData);
+      const data = response.data;
 
-  } catch (err) {
-    setError('An error occurred. Please ensure the backend server is running and check input values.');
-    console.error("Error fetching prediction:", err);
-  } finally {
-    setIsLoading(false);
-  }
-};
+      console.log('📥 Response from backend:', data);
 
+      const chartData = Object.entries(data.all_probabilities).map(([key, value]) => ({
+        label: key,
+        value: value * 100
+      }));
+
+      setPredictionResult(chartData);
+      setPredictedCategory(data.predicted_severity);
+
+    } catch (err) {
+      const errorMsg = err.response?.data?.detail || err.message || 'Unknown error';
+      setError(`Error: ${errorMsg}`);
+      console.error("❌ Error fetching prediction:", err);
+      console.error("❌ Error details:", err.response?.data);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <div className="chart3-page-wrapper">
