@@ -38,7 +38,7 @@ function Shell() {
           <NavButton to="/home">Home</NavButton>
           <NavButton to="/chart1">Prediction Tool</NavButton>
           <NavButton to="/chart2">Chart 2</NavButton>
-          <NavButton to="/chart3">Chart 3</NavButton>
+          <NavButton to="/chart3">Flight Delay Forecast</NavButton>
         </nav>
       </header>
 
