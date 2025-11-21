@@ -90,11 +90,10 @@ function Chart3() {
       setPredictionResult(chartData);
       setPredictedCategory(data.predicted_severity);
 
-    } catch (err) {
-      const errorMsg = err.response?.data?.detail || err.message || 'Unknown error';
-      setError(`Error: ${errorMsg}`);
-      console.error("❌ Error fetching prediction:", err);
-      console.error("❌ Error details:", err.response?.data);
+    } catch (err)      {
+      // If the API call fails, set an error message
+      setError('An error occurred. Please ensure the backend server is running.');
+      console.error("Error fetching prediction:", err);
     } finally {
       setIsLoading(false);
     }
