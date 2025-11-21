@@ -17,7 +17,7 @@ const DoughnutChart = ({ data }) => {
 
     // --- Create and manage the tooltip element ---
     const tooltip = d3.select("body").append("div")
-      .attr("class", "chart-tooltip") // Assign a class for styling in App.css
+      .attr("class", "chart3-tooltip") // Assign a class for styling in App.css
       .style("opacity", 0);           // Start invisible
 
     // --- Make the chart responsive ---
@@ -60,7 +60,7 @@ const DoughnutChart = ({ data }) => {
         .on("mouseover touchstart", function(event, d) {
           d3.select(this).transition().duration(200).attr("d", arcHover);
           tooltip.transition().duration(200).style("opacity", 1);
-          tooltip.html(`<div class="tooltip-label">${d.data.label}</div><div class="tooltip-value">Probability: ${d.data.value.toFixed(1)}%</div><div class="tooltip-definition">${delayDefinitions[d.data.label]}</div>`);
+          tooltip.html(`<div class="chart3-tooltip-label">${d.data.label}</div><div class="chart3-tooltip-value">Probability: ${d.data.value.toFixed(1)}%</div><div class="chart3-tooltip-definition">${delayDefinitions[d.data.label]}</div>`);
         })
         .on("mousemove touchmove", function(event) {
           const coords = getEventCoordinates(event);
@@ -94,11 +94,11 @@ const DoughnutChart = ({ data }) => {
   return (
     <div ref={containerRef} style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '20px' }}>
       {/* The chart legend */}
-      <div className="chart-legend">
+      <div className="chart3-legend">
         {data && data.map((item) => (
-          <div key={item.label} className="legend-item">
-            <div className="legend-color-box" style={{ backgroundColor: colorMap[item.label] }}></div>
-            <span className="legend-label">{item.label}</span>
+          <div key={item.label} className="chart3-legend-item">
+            <div className="chart3-legend-color-box" style={{ backgroundColor: colorMap[item.label] }}></div>
+            <span className="chart3-legend-label">{item.label}</span>
           </div>
         ))}
       </div>
