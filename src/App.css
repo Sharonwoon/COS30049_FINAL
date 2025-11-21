@@ -1045,3 +1045,121 @@ body.body-chart3-active {
   }
 }
 /* Ensure there are no extra braces after this point */
+
+/* =================================================================== */
+/*                     MOBILE & TABLET RESPONSIVE FIXES                  */
+/* =================================================================== */
+
+/* --- A. Tablet and Smaller (Affects iPad Pro and phones) --- */
+@media (max-width: 1024px) {
+  /* 
+    FIX: Pushes the main titles on Chart 2 & 3 to the top of the page 
+    instead of the vertical center. This fixes the "too low" title problem.
+  */
+  .chart3-header {
+    justify-content: flex-start;
+    padding-top: 4rem; /* Add some space from the top nav */
+  }
+
+  .chart2-page-wrapper .app-container {
+    padding-top: 4rem;
+  }
+}
+
+
+/* --- B. Mobile Devices (Affects phones and small tablets) --- */
+@media (max-width: 768px) {
+  
+  /* 1. GLOBAL LAYOUT & NAVIGATION FIX */
+  /* Stacks the main title on top of the navigation buttons */
+  .dashboard-header {
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem; /* Add space between title and nav */
+    margin-bottom: 1.5rem;
+  }
+
+  /* Centers the navigation buttons */
+  .dashboard-nav {
+    justify-content: center;
+  }
+  
+  /* Reduces padding on the main page container */
+  .page-shell {
+    padding: 20px 15px 0;
+  }
+
+  /* Reduces main dashboard title size */
+  .dashboard-title {
+    font-size: 1.5rem;
+    text-align: center;
+  }
+
+
+  /* 2. BACKGROUND IMAGE FIX */
+  /* 
+    FIX: Prevents the "zoomed-in" background effect on mobile.
+    We remove background-attachment: fixed, which is buggy on mobile,
+    and let the background scroll naturally with the page.
+  */
+  body.body-chart2-active,
+  body.body-chart3-active {
+    background-attachment: scroll;
+  }
+
+
+  /* 3. HOME & CHART 1 CARD WIDTH FIX */
+  /* Makes the cards wider to fill the screen better */
+  .home-hero,
+  .form,
+  .result,
+  .charts-container .chart-card {
+    width: 95%;
+    padding: 1.5rem;
+  }
+
+
+  /* 4. CHART 2 CARD & TITLE FIX */
+  .chart2-page-wrapper .header h1 {
+    font-size: 1.8rem; /* Reduce title size */
+  }
+  
+  .chart2-page-wrapper .card {
+    padding: 20px; /* Reduce padding inside cards */
+  }
+  
+  /* Stack form elements in Chart 2 */
+  .chart2-page-wrapper .form-row {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+
+  /* 5. CHART 3 CARD & TITLE FIX */
+  .chart3-main-title {
+    font-size: 1.8rem; /* Reduce title size */
+    padding: 0 1rem;
+  }
+
+  .chart3-subtitle {
+    font-size: 0.9rem;
+  }
+
+  /* Make form/result cards wider */
+  .chart3-form-card,
+  .chart3-result-card {
+    width: 95%;
+    padding: 1.5rem;
+  }
+
+  /* Reduce the size of the progress bar */
+  .chart3-progress-bar-container {
+      height: 25px;
+  }
+  .chart3-progress-bar-track {
+      height: 24px;
+  }
+  .chart3-airplane-icon {
+      font-size: 22px;
+  }
+}
