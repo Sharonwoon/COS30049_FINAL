@@ -531,5 +531,300 @@ body {
   .chart-card {
     padding-inline: 1.2rem;
   }
+
+/* =================================================================== */
+/*                      2. CHART 3 SPECIFIC STYLES                       */
+/* =================================================================== */
+/* These styles are scoped to the .chart3-page-wrapper class */
+
+/* Styles for the main application container for Chart 3 */
+.chart3-page-wrapper {
+  text-align: center;
+  background-image: url('./assets/background.jpg');
+  background-size: cover;
+  background-position: center;
+  animation: chart3-kenburns-bg 10s ease-out infinite;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
 }
 
+/* Ken Burns animation keyframes, moving cloud and airplane */
+@keyframes chart3-kenburns-bg {
+  0% {
+    background-size: 100% 100%;
+  }
+  50% {
+    background-size: 125% 125%;
+  }
+  100% {
+    background-size: 100% 100%;
+  }
+}
+
+/* Full-page container */
+.chart3-header {
+  background-color: rgba(255, 255, 255, 0.1);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: #2c3e50;
+  padding-top: 2rem;
+  padding-bottom: 4rem;
+}
+
+/* Styles for the main title of the application */
+.chart3-main-title {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: #333;
+  text-shadow: 1px 1px 3px rgba(255,255,255,0.5);
+  font-size: 2.5rem;
+}
+
+/* Styles for the subtitle */
+.chart3-subtitle {
+  font-size: 1rem;
+  font-weight: 400;
+  color: #555;
+  margin-top: 0;
+  margin-bottom: 2.5rem;
+  max-width: 500px;
+  padding: 0 1rem;
+  text-shadow: 1px 1px 2px rgba(255,255,255,0.4);
+}
+
+/* Container for the form and result cards */
+.chart3-content-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+  width: 100%;
+  max-width: 900px;
+}
+
+/* Styles for the semi-transparent cards */
+.chart3-form-card, .chart3-result-card {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(8px);
+  padding: 2rem;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+}
+
+/* General styles for form elements */
+.chart3-result-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.chart3-form-card form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.chart3-form-card label {
+  text-align: left;
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+.chart3-form-card input, .chart3-form-card select {
+  padding: 0.8rem;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+  font-size: 1rem;
+}
+.chart3-form-card button {
+  padding: 0.8rem 1rem;
+  border-radius: 4px;
+  border: none;
+  background-color: #007bff;
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+.chart3-form-card button:hover {
+  background-color: #0056b3;
+}
+.chart3-form-card button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+/* Styles for error and loading text messages */
+.chart3-error-text, .chart3-loading-text {
+  color: #d9534f;
+  margin-top: 1rem;
+}
+.chart3-loading-text {
+  color: #333;
+}
+
+/* Styles for the content inside the prediction result card */
+.chart3-prediction-output h2 {
+  margin-top: 0;
+  font-size: 1.5rem;
+}
+.chart3-prediction-output h3 {
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+}
+
+/* Specific text colors for each prediction category */
+.chart3-category-No-Delay {
+  color: #4CAF50;
+}
+.chart3-category-Minor {
+  color: #FFC107;
+}
+.chart3-category-Major {
+  color: #F44336;
+}
+
+/* Styles for the doughnut chart's tooltip */
+.chart3-tooltip {
+  position: absolute;
+  background-color: rgba(30, 30, 30, 0.9);
+  color: #fff;
+  padding: 10px 14px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  pointer-events: none;
+  text-align: left;
+  z-index: 9999;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+  transition: opacity 0.2s ease;
+  width: 190px;
+}
+.chart3-tooltip .tooltip-label {
+  font-weight: bold;
+  font-size: 1rem;
+  margin-bottom: 5px;
+}
+.chart3-tooltip .tooltip-value {
+  font-size: 0.9rem;
+  margin-bottom: 6px;
+  color: #ddd;
+}
+.chart3-tooltip .tooltip-definition {
+  font-style: italic;
+  font-size: 0.8rem;
+  line-height: 1.4;
+  color: #ccc;
+  border-top: 1px solid rgba(255,255,255,0.2);
+  padding-top: 6px;
+  margin-top: 6px;
+}
+
+/* Styles for the animated flight progress bar */
+.chart3-progress-bar-container {
+  width: 80%;
+  margin: 1.5rem 0;
+  position: relative;
+  height: 30px;
+  display: flex;
+  align-items: center;
+}
+.chart3-progress-bar-track {
+  width: 100%;
+  height: 28px;
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 14px;
+  overflow: hidden;
+}
+.chart3-progress-bar-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #6dd5ed, #2193b0);
+  border-radius: 14px;
+  position: relative;
+  transition-property: width;
+  transition-timing-function: ease-out;
+}
+.chart3-progress-bar-fill.is-animating {
+  width: 100%;
+}
+.chart3-progress-bar--fast {
+  transition-duration: 3s;
+}
+.chart3-progress-bar--medium {
+  transition-duration: 7s;
+}
+.chart3-progress-bar--slow {
+  transition-duration: 12s;
+}
+.chart3-airplane-icon {
+  position: absolute;
+  right: 0px;
+  top: 50%;
+  font-size: 26px;
+  transform: translateY(-50%) rotate(90deg);
+}
+
+/* Styles for the doughnut chart's legend */
+.chart3-legend {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.chart3-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.chart3-legend-color-box {
+  width: 20px;
+  height: 20px;
+  border-radius: 3px;
+}
+.chart3-legend-label {
+  font-size: 14px;
+  color: #333;
+  font-weight: 500;
+}
+
+/* --- Responsive Design for Mobile Devices --- */
+@media (max-width: 850px) {
+  .chart3-header {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+  }
+  .chart3-main-title {
+    font-size: 2.2rem;
+  }
+  .chart3-subtitle {
+    font-size: 0.9rem;
+    margin-bottom: 1.5rem;
+  }
+  .chart3-content-container {
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+  }
+  .chart3-form-card, .chart3-result-card {
+    width: 85%;
+    padding: 1.5rem;
+  }
+  .chart3-prediction-output h2 {
+    font-size: 1.3rem;
+  }
+  .chart3-prediction-output h3 {
+    font-size: 1.1rem;
+  }
+  .chart3-legend-label {
+    font-size: 12px;
+  }
+  .chart3-legend-color-box {
+    width: 15px;
+    height: 15px;
+  }
+}
+}
