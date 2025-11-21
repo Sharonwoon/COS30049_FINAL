@@ -5,7 +5,7 @@ import {
 } from 'recharts';
 import './App.css';
 
-function App() {
+function Chart2() {
   const [formData, setFormData] = useState({
     year: new Date().getFullYear(),
     month: 1,
@@ -24,6 +24,14 @@ function App() {
   // Ref to scroll to chart on click
   const comparisonRef = useRef(null);
 
+  // Manages the background for the Chart2 page
+  useEffect(() => {
+    document.body.classList.add('body-chart2-active');
+    return () => {
+      document.body.classList.remove('body-chart2-active');
+    };
+  }, []); 
+  
   useEffect(() => {
     const fetchOptions = async () => {
       try {
@@ -107,11 +115,12 @@ function App() {
   };
 
   return (
-    <div className="app-container">
-      <header className="header">
-        <h1>✈️ Flight Weather Impact AI</h1>
-        <p>Predict delays and analyze market alternatives</p>
-      </header>
+    <div className="chart2-page-wrapper">
+      <div className="app-container">
+        <header className="header">
+          <h1>✈️ Flight Weather Impact AI</h1>
+          <p>Predict delays and analyze market alternatives</p>
+        </header>
 
       <main className="main-content">
         <div className="card form-card">
@@ -265,7 +274,8 @@ function App() {
         )}
       </main>
     </div>
+    </div>
   );
 }
 
-export default App;
+export default Chart2;

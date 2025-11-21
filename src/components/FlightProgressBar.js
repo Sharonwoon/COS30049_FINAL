@@ -21,21 +21,21 @@ const FlightProgressBar = ({ status }) => {
   // Determine the correct CSS class for the animation speed
   const getAnimationClass = () => {
     switch (status) {
-      case 'No Delay': return 'progress-bar--fast';
-      case 'Minor': return 'progress-bar--medium';
-      case 'Major': return 'progress-bar--slow';
+      case 'No Delay': return 'chart3-progress-bar--fast';
+      case 'Minor': return 'chart3-progress-bar--medium';
+      case 'Major': return 'chart3-progress-bar--slow';
       default: return '';
     }
   };
 
   // Combine all necessary classes 
-  const barFillClasses = `progress-bar-fill ${getAnimationClass()} ${isAnimating ? 'is-animating' : ''}`;
+  const barFillClasses = `chart3-progress-bar-fill ${getAnimationClass()} ${isAnimating ? 'is-animating' : ''}`;
 
   return (
-    <div className="progress-bar-container">
-      <div className="progress-bar-track">  
+    <div className="chart3-progress-bar-container">
+      <div className="chart3-progress-bar-track">  
         <div className={barFillClasses}>
-          <div className="airplane-icon">✈️</div>
+          <div className="chart3-airplane-icon">✈️</div>
         </div>
       </div>
     </div>
