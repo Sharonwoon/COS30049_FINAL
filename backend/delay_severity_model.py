@@ -20,7 +20,7 @@ class SimpleFlightDelayModel:
     # -------------------------------------------------------
     # 1. TRAIN MODEL (Run: python model.py)
     # -------------------------------------------------------
-    def train(self, dataset_path="../data/flight_data_prices.csv"):
+    def train(self, dataset_path="../dataset/flight_data_prices.csv"):
         """
         Train the KNN model using your full dataset.
         Will generate delay_severity_model.pkl.

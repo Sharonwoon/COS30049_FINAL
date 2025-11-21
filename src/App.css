@@ -531,7 +531,7 @@ body {
   .chart-card {
     padding-inline: 1.2rem;
   }
-
+}
 /* =================================================================== */
 /*                      2. CHART 3 SPECIFIC STYLES                       */
 /* =================================================================== */
@@ -827,4 +827,4 @@ body {
     height: 15px;
   }
 }
-}
+/* Ensure there are no extra braces after this point */
