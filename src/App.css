@@ -1,38 +1,468 @@
+/* -------------------------------
+   GLOBAL PAGE BACKGROUND
+--------------------------------*/
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, sans-serif;
+
+  /* Premium sky gradient */
+  background: radial-gradient(
+    circle at 20% 0,
+    #ffffff 0,
+    #dbeafe 18%,
+    #93c5fd 40%,
+    #60a5fa 60%,
+    #1d4ed8 100%
+  );
+  color: #0f172a;
+}
+
+/* Make the app fill viewport nicely */
 .App {
+  min-height: 100vh;
+  position: relative;
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
+/* -------------------------------
+   BACKGROUND LAYERS
+--------------------------------*/
+
+/* Moving cloud image */
+.clouds-bg {
+  position: fixed;
+  top: 6vh;
+  left: -320px;
+  width: 640px;
+  height: 320px;
+  background: url("./assets/clouds.png") no-repeat center center / contain;
+  animation: cloudMove 22s linear infinite;
+  opacity: 0.9;
+  z-index: -3;
   pointer-events: none;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+@keyframes cloudMove {
+  0% {
+    transform: translateX(-40vw);
+  }
+  100% {
+    transform: translateX(130vw);
   }
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+/* Rain layer – only visible when App--raining is present */
+.rain-bg {
+  position: fixed;
+  inset: 0;
+  background: url("./assets/rain.png") repeat;
+  animation: rainFall 0.6s linear infinite;
+  opacity: 0;
+  z-index: -2;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+.App--raining .rain-bg {
+  opacity: 0.55;
+}
+
+@keyframes rainFall {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 0 600px;
+  }
+}
+
+/* -------------------------------
+   HEADER & NAV
+--------------------------------*/
+
+.header {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 1.75rem 1.5rem 0.5rem;
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 0.5rem;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 2.6rem;
+  letter-spacing: 0.02em;
+  color: #020617;
+}
+
+.subtitle {
+  margin: 0;
+  font-size: 0.98rem;
+  color: #1e293b;
+  opacity: 0.9;
+}
+
+/* Nav strip with buttons + status */
+.header-actions {
+  margin-top: 1.1rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+}
+
+/* Pill navigation buttons (Home / Prediction tool) */
+.nav-btn {
+  border-radius: 999px;
+  padding: 0.45rem 1.4rem;
+  border: 1px solid rgba(15, 23, 42, 0.12);
+  background: rgba(255, 255, 255, 0.9);
+  color: #0f172a;
+  font-weight: 500;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.16s ease-out;
+  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.08);
+}
+
+.nav-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.14);
+}
+
+/* Active tab */
+.nav-btn--active {
+  background: linear-gradient(135deg, #2563eb, #1d4ed8);
+  color: #f9fafb;
+  border-color: transparent;
+}
+
+/* Backend status button */
+.health-btn {
+  border-radius: 999px;
+  padding: 0.5rem 1.5rem;
+  border: none;
+  background: #020617;
+  color: #f9fafb;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.5);
+  transition: transform 0.15s ease-out, box-shadow 0.15s ease-out,
+    background 0.15s ease-out;
+}
+
+.health-btn:hover {
+  background: #0b1120;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(15, 23, 42, 0.7);
+}
+
+/* -------------------------------
+   HOME PAGE
+--------------------------------*/
+
+.home {
+  display: flex;
+  justify-content: center;
+  padding: 1.5rem 1.5rem 3rem;
+}
+
+.home-hero {
+  max-width: 900px;
+  width: 100%;
+  text-align: left;
+  background: radial-gradient(
+    circle at top left,
+    #ffffff,
+    #eff6ff 45%,
+    #e0edff 100%
+  );
+  border-radius: 24px;
+  padding: 2.2rem 2.4rem 2.4rem;
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.26);
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  backdrop-filter: blur(10px);
+}
+
+.home-hero h2 {
+  margin: 0 0 0.6rem;
+  font-size: 1.9rem;
+  color: #0f172a;
+}
+
+.home-hero p {
+  margin: 0 0 1.1rem;
+  color: #1f2937;
+  font-size: 0.98rem;
+}
+
+.home-list {
+  margin: 0 0 1.6rem;
+  padding-left: 1.1rem;
+  color: #111827;
+  font-size: 0.96rem;
+}
+
+.home-list li {
+  margin-bottom: 0.35rem;
+}
+
+/* Call-to-action button */
+.home-cta {
+  width: 210px;
+}
+
+/* -------------------------------
+   BUTTONS (shared)
+--------------------------------*/
+
+.primary-btn {
+  margin-top: 0.8rem;
+  width: 100%;
+  padding: 0.75rem;
+  border-radius: 999px;
+  border: none;
+  background: linear-gradient(135deg, #2563eb, #1d4ed8);
   color: white;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  box-shadow: 0 8px 18px rgba(37, 99, 235, 0.35);
+  transition: transform 0.14s ease-out, box-shadow 0.14s ease-out,
+    filter 0.14s ease-out;
 }
 
-.App-link {
-  color: #61dafb;
+.primary-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 12px 26px rgba(37, 99, 235, 0.5);
+  filter: brightness(1.02);
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.primary-btn:disabled {
+  opacity: 0.7;
+  cursor: default;
+  box-shadow: none;
+  transform: none;
+}
+
+/* -------------------------------
+   PREDICTION FORM CARD
+--------------------------------*/
+
+.form {
+  max-width: 640px;
+  margin: 1.8rem auto 0;
+  padding: 1.9rem 2rem 2rem;
+  background: rgba(248, 250, 252, 0.96);
+  border-radius: 22px;
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.22);
+  border: 1px solid rgba(148, 163, 184, 0.4);
+  text-align: left;
+  backdrop-filter: blur(12px);
+}
+
+.form h2 {
+  margin-top: 0;
+  margin-bottom: 1.1rem;
+  font-weight: 700;
+  color: #020617;
+}
+
+.form-row {
+  margin-bottom: 1rem;
+}
+
+.form label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.3rem;
+  font-size: 0.9rem;
+  color: #111827;
+}
+
+.form select {
+  width: 100%;
+  padding: 0.55rem 0.65rem;
+  border-radius: 10px;
+  border: 1px solid #cbd5e1;
+  font-size: 0.92rem;
+  transition: border-color 0.15s ease-out, box-shadow 0.15s ease-out;
+}
+
+.form select:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 1px rgba(37, 99, 235, 0.5);
+}
+
+.hint {
+  display: block;
+  margin-top: 0.15rem;
+  font-size: 0.78rem;
+  color: #6b7280;
+}
+
+/* Error text */
+.error-text {
+  color: #b91c1c;
+  margin-top: 0.6rem;
+  font-size: 0.85rem;
+}
+
+/* -------------------------------
+   RESULT CARD
+--------------------------------*/
+
+.result {
+  max-width: 640px;
+  margin: 1.8rem auto 0;
+  padding: 1.5rem 2rem 1.7rem;
+  background: rgba(15, 23, 42, 0.96);
+  border-radius: 20px;
+  color: #e5e7eb;
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.8);
+  border: 1px solid rgba(148, 163, 184, 0.5);
+  text-align: left;
+}
+
+.result h2 {
+  margin-top: 0;
+  margin-bottom: 0.9rem;
+  font-size: 1.3rem;
+}
+
+.result p {
+  margin: 0.15rem 0;
+  font-size: 0.95rem;
+}
+
+.result strong {
+  color: #facc15;
+}
+
+/* -------------------------------
+   RESTORE SECTION
+--------------------------------*/
+
+.restore-wrapper {
+  max-width: 640px;
+  margin: 2.4rem auto 0;
+  text-align: center;
+}
+
+.restore-btn {
+  padding: 0.9rem 2.6rem;
+  border-radius: 999px;
+  border: none;
+  background: #facc15;
+  color: #111827;
+  font-weight: 600;
+  font-size: 0.96rem;
+  cursor: pointer;
+  box-shadow: 0 12px 26px rgba(180, 83, 9, 0.6);
+  transition: transform 0.14s ease-out, box-shadow 0.14s ease-out,
+    filter 0.14s ease-out;
+}
+
+.restore-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 16px 34px rgba(180, 83, 9, 0.75);
+  filter: brightness(1.02);
+}
+
+.restore-meta {
+  margin-top: 0.45rem;
+  font-size: 0.8rem;
+  color: #e5e7eb;
+  opacity: 0.9;
+}
+
+/* -------------------------------
+   CHARTS
+--------------------------------*/
+
+.charts-container {
+  margin-top: 3rem;
+  margin-bottom: 3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  align-items: center;
+}
+
+.chart-card {
+  width: 90%;
+  max-width: 950px;
+  padding: 2.1rem 2rem;
+  background: rgba(248, 250, 252, 0.97);
+  border-radius: 24px;
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.25);
+  border: 1px solid rgba(148, 163, 184, 0.45);
+}
+
+/* Optional chart title styling */
+.chart-title {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #020617;
+  text-align: center;
+}
+
+/* -------------------------------
+   RESPONSIVE
+--------------------------------*/
+
+@media (max-width: 900px) {
+  .home-hero {
+    padding: 1.8rem 1.6rem 2rem;
   }
-  to {
-    transform: rotate(360deg);
+
+  .form,
+  .result {
+    margin-left: 1rem;
+    margin-right: 1rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .header {
+    padding-inline: 1rem;
+  }
+
+  .header h1 {
+    font-size: 2rem;
+  }
+
+  .home {
+    padding-inline: 1rem;
+  }
+
+  .home-hero {
+    border-radius: 18px;
+    padding: 1.5rem 1.4rem 1.9rem;
+  }
+
+  .form,
+  .result {
+    padding-inline: 1.35rem;
+  }
+
+  .chart-card {
+    padding-inline: 1.2rem;
   }
 }
