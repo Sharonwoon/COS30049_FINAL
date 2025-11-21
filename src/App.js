@@ -37,7 +37,7 @@ function Shell() {
         <nav className="dashboard-nav">
           <NavButton to="/home">Home</NavButton>
           <NavButton to="/chart1">Prediction Tool</NavButton>
-          <NavButton to="/chart2">Chart 2</NavButton>
+          <NavButton to="/chart2">Future Flight Analysis</NavButton>
           <NavButton to="/chart3">Flight Delay Forecast</NavButton>
         </nav>
       </header>
