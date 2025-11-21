@@ -56,8 +56,8 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [isHighRisk, setIsHighRisk] = useState(false);
 
-  // simple “router” for Home vs Prediction page
-  const [page, setPage] = useState("home"); // "home" | "predict"
+  // default is "predict" so Chart 1 opens directly on the tool
+  const [page, setPage] = useState("predict"); // "home" | "predict"
 
   // saved snapshot when user leaves Prediction tool
   const [savedHistory, setSavedHistory] = useState(null);
@@ -167,7 +167,7 @@ function App() {
       <div className="clouds-bg" />
       <div className="rain-bg" />
 
-      {/* Shared header + simple nav */}
+      {/* Shared header (no Home button here anymore) */}
       <header className="header">
         <h1>Flight Weather Delay Prediction</h1>
         <p className="subtitle">
@@ -176,16 +176,12 @@ function App() {
         </p>
 
         <div className="header-actions">
+          {/* Only Prediction tool button is kept */}
           <button
             type="button"
-            className={`nav-btn ${page === "home" ? "nav-btn--active" : ""}`}
-            onClick={() => handleNavigate("home")}
-          >
-            Home
-          </button>
-          <button
-            type="button"
-            className={`nav-btn ${page === "predict" ? "nav-btn--active" : ""}`}
+            className={`nav-btn ${
+              page === "predict" ? "nav-btn--active" : ""
+            }`}
             onClick={() => handleNavigate("predict")}
           >
             Prediction tool
@@ -197,7 +193,7 @@ function App() {
         </div>
       </header>
 
-      {/* -------- HOME PAGE -------- */}
+      {/* -------- HOME PAGE (still kept if you ever navigate to it programmatically) -------- */}
       {page === "home" && (
         <main className="home">
           <section className="home-hero">

@@ -1,4 +1,3 @@
-// src/pages/home.js  (or wherever you keep it)
 import React from "react";
 import { Link } from "react-router-dom";
 
@@ -18,7 +17,8 @@ export default function Home() {
           <li>View delay trends in charts.</li>
         </ul>
 
-        <Link to="/predict" className="primary-btn home-cta">
+        {/* 🔥 Updated link — now goes to Chart 1 */}
+        <Link to="/chart1" className="primary-btn home-cta">
           Start prediction
         </Link>
       </section>
