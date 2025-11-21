@@ -2,12 +2,15 @@ from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field, validator
 
+# If you later load ML model, import here:
+# from weather_delay_prediction_model import load_model, predict
+
 app = FastAPI(title="Assignment 3 Flight Delay API")
 
-# Allow React (running on a different port) to call FastAPI
+# Allow React to call FastAPI
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],      # later you can restrict this
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -32,7 +35,6 @@ class PredictionRequest(BaseModel):
 
 class PredictionResponse(BaseModel):
     message: str
-    # placeholders – later we’ll replace with real model output
     high_weather_risk: bool
     total_delay_minutes: float
     delay_category: str
@@ -40,27 +42,25 @@ class PredictionResponse(BaseModel):
 
 # ---------- ROUTES ----------
 
-# 1) Simple GET route (for health check)
 @app.get("/health")
 def health_check():
     return {"status": "ok", "detail": "FastAPI is running"}
 
 
-# 2) POST route for predictions (required by assignment)
 @app.post("/predict", response_model=PredictionResponse)
 def predict_delay(payload: PredictionRequest):
     try:
-        # TODO: here we will call your real ML models
-
-        # For now, we just return some dummy values so we can test the flow
+        # TODO: Replace with real ML model call later
         return PredictionResponse(
-            message="Dummy prediction (no model yet)",
+            message="Dummy prediction (no ML model yet)",
             high_weather_risk=payload.weather_delay_count > 10,
-            total_delay_minutes=payload.carrier_delay_count
-                                + payload.late_aircraft_count
-                                + payload.cancelled_flights * 30,
+            total_delay_minutes=(
+                payload.carrier_delay_count +
+                payload.late_aircraft_count +
+                payload.cancelled_flights * 30
+            ),
             delay_category="Minor",
         )
+
     except Exception as e:
-        # generic error handling
         raise HTTPException(status_code=500, detail=f"Prediction failed: {e}")
