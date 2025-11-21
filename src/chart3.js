@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import DoughnutChart from './components/DoughnutChart';
 import FlightProgressBar from './components/FlightProgressBar';
@@ -21,6 +21,17 @@ function Chart3() {
     Arrival_Airport: 'LAX',
     Departure_Time: '2025-11-20T22:15',
   });
+
+// Manages the background of the entire page.
+  useEffect(() => {
+    // When this component loads, add a specific class to the <body> tag
+    document.body.classList.add('body-chart3-active');
+
+    // When the component is unmounted, the cleanup function runs and removes the class
+    return () => {
+      document.body.classList.remove('body-chart3-active');
+    };
+  }, []); 
 
   // Updates the formData state when a user types in the form field
   const handleInputChange = (e) => {
