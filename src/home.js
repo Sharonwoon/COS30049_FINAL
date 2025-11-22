@@ -28,7 +28,7 @@ export default function Home() {
           </li>
         </ul>
 
-        <Link to="/weather-prediction" className="primary-btn home-cta">
+        <Link to="/chart1" className="primary-btn home-cta">
           Explore All Predictors
         </Link>
       </section>

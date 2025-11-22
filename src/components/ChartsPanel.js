@@ -30,7 +30,7 @@ function ChartsPanel({ history }) {
     return null;
   }
 
-  const labels = history.map((_, idx) => `Query ${idx + 1}`);
+  const labels = history.map((_, idx) => `Prediction ${idx + 1}`);
 
   // ----- Bar + Line (combo) data -----
   const barLineData = {
@@ -142,7 +142,7 @@ function ChartsPanel({ history }) {
       x: {
         title: {
           display: true,
-          text: "Prediction Query",
+          text: "Prediction Weather",
         },
       },
     },
