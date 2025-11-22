@@ -312,3 +312,8 @@ def get_options():
     if MODELS.get("flight"):
         return {"carriers": MODELS["flight"]["carriers"], "airports": MODELS["flight"]["airports"]}
     return {"carriers": [], "airports": []}
+
+@app.get("/health")
+async def health():
+    return {"All good! The flight delay engine is running smoothly",
+        }

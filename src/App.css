@@ -244,59 +244,213 @@ body {
    HOME PAGE
 --------------------------------*/
 
+/* ================= */
+/* HOME PAGE – NEW PROFESSIONAL DESIGN */
+/* Only affects the Home route – no impact on other pages */
+/* ================= */
+
 .home {
   display: flex;
   justify-content: center;
-  padding: 1.5rem 1.5rem 3rem;
+  align-items: center;
+  min-height: calc(100vh - 120px); /* Full height minus header */
+  padding: 2rem 1rem;
+  position: relative;
+  z-index: 1;
 }
 
-/* REMOVE the unwanted bottom layer ONLY on Home page */
-.home::after {
-  display: none !important;
-}
-
+/* Beautiful centered hero card – matches your screenshot perfectly */
 .home-hero {
-  max-width: 900px;
+  max-width: 920px;
   width: 100%;
-  text-align: left;
-  background: radial-gradient(
-    circle at top left,
-    #ffffff,
-    #eff6ff 45%,
-    #e0edff 100%
-  );
-  border-radius: 24px;
-  padding: 2.2rem 2.4rem 2.4rem;
-  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.26);
-  border: 1px solid rgba(148, 163, 184, 0.35);
-  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-radius: 28px;
+  padding: 3.2rem 3rem 3.6rem;
+  box-shadow: 
+    0 20px 50px rgba(15, 23, 42, 0.22),
+    0 0 80px rgba(59, 130, 246, 0.15);
+  border: 1px solid rgba(148, 163, 184, 0.3);
+  text-align: center;
+  animation: fadeInUp 0.8s ease-out;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .home-hero h2 {
-  margin: 0 0 0.6rem;
-  font-size: 1.9rem;
-  color: #0f172a;
+  margin: 0 0 0.8rem;
+  font-size: 2.6rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, #1e40af, #1e3a8a);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: -0.02em;
+}
+
+.home-hero h2::after {
+  content: " ✈️";
+  display: inline-block;
+  animation: floatPlane 4s ease-in-out infinite;
+}
+
+@keyframes floatPlane {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-12px) rotate(5deg); }
 }
 
 .home-hero p {
-  margin: 0 0 1.1rem;
-  color: #1f2937;
-  font-size: 0.98rem;
+  margin: 0 0 1.8rem;
+  font-size: 1.15rem;
+  line-height: 1.7;
+  color: #374151;
+  max-width: 720px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
+/* Feature list – modern checkmarks */
 .home-list {
-  margin: 0 0 1.6rem;
-  padding-left: 1.1rem;
-  color: #111827;
-  font-size: 0.96rem;
+  list-style: none;
+  padding: 0;
+  margin: 2rem 0 2.8rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.2rem;
+  max-width: 780px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .home-list li {
-  margin-bottom: 0.35rem;
+  font-size: 1.05rem;
+  color: #1f2937;
+  position: relative;
+  padding-left: 2.2rem;
+  text-align: left;
+  font-weight: 500;
 }
 
+.home-list li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 28px;
+  height: 28px;
+  background: linear-gradient(135deg, #3b82f6, #2563eb);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+  font-weight: bold;
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+/* CTA Button – Premium look */
 .home-cta {
-  width: 210px;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 1rem 2.8rem;
+  font-size: 1.15rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #2563eb, #1d4ed8);
+  color: white;
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+  box-shadow: 
+    0 10px 25px rgba(37, 99, 235, 0.4),
+    0 0 40px rgba(37, 99, 235, 0.2);
+  transition: all 0.25s ease;
+  text-decoration: none;
+  margin-top: 1rem;
+}
+
+.home-cta:hover {
+  transform: translateY(-4px) scale(1.03);
+  box-shadow: 
+    0 16px 35px rgba(37, 99, 235, 0.5),
+    0 0 60px rgba(37, 99, 235, 0.3);
+  background: linear-gradient(135deg, #1d4ed8, #1e40af);
+}
+
+.home-cta:active {
+  transform: translateY(-2px);
+}
+
+/* Optional subtle floating animation on the card */
+.home-hero::before {
+  content: "";
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  right: -10px;
+  bottom: -10px;
+  background: linear-gradient(45deg, transparent, rgba(59, 130, 246, 0.08), transparent);
+  border-radius: 32px;
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.home-hero:hover::before {
+  opacity: 1;
+}
+
+/* ================= */
+/* RESPONSIVE TWEAKS – Home only */
+/* ================= */
+@media (max-width: 768px) {
+  .home-hero {
+    padding: 2.5rem 2rem;
+    border-radius: 22px;
+  }
+
+  .home-hero h2 {
+    font-size: 2.2rem;
+  }
+
+  .home-hero p {
+    font-size: 1.05rem;
+  }
+
+  .home-list {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .home-list li {
+    font-size: 1rem;
+  }
+
+  .home-cta {
+    padding: 0.9rem 2.4rem;
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .home-hero h2 {
+    font-size: 2rem;
+  }
+
+  .home-hero {
+    padding: 2rem 1.5rem;
+  }
 }
 
 /* -------------------------------
@@ -421,41 +575,64 @@ body {
 }
 
 /* -------------------------------
-   RESTORE SECTION
+   RESTORE SECTION – BEAUTIFUL NEW DESIGN
 --------------------------------*/
 
-.restore-wrapper {
-  max-width: 640px;
-  margin: 2.4rem auto 0;
-  text-align: center;
+/* ───────────────────────────────────────────────────────────────
+   NEW: STATUS + RESTORE BUTTONS SIDE BY SIDE (Chart 1)
+   ───────────────────────────────────────────────────────────── */
+.status-and-restore {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 8px;
 }
 
-.restore-btn {
-  padding: 0.9rem 2.6rem;
+.restore-btn-inline {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 0.5rem 1.6rem;
   border-radius: 999px;
   border: none;
-  background: #facc15;
-  color: #111827;
-  font-weight: 600;
-  font-size: 0.96rem;
+  background: linear-gradient(135deg, #facc15, #f59e0b);
+  color: #1e293b;
+  font-weight: 700;
+  font-size: 0.95rem;
   cursor: pointer;
-  box-shadow: 0 12px 26px rgba(180, 83, 9, 0.6);
-  transition: transform 0.14s ease-out, box-shadow 0.14s ease-out,
-    filter 0.14s ease-out;
+  box-shadow: 0 8px 20px rgba(251, 191, 36, 0.4);
+  transition: all 0.25s ease;
+  white-space: nowrap;
 }
 
-.restore-btn:hover {
+
+.restore-btn-inline:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 14px 30px rgba(251, 191, 36, 0.55);
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+}
+
+.restore-btn-inline:active {
   transform: translateY(-1px);
-  box-shadow: 0 16px 34px rgba(180, 83, 9, 0.75);
-  filter: brightness(1.02);
 }
 
-.restore-meta {
-  margin-top: 0.45rem;
-  font-size: 0.8rem;
-  color: #e5e7eb;
-  opacity: 0.9;
+.restore-meta-inline {
+  margin-top: 0.6rem;
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.95);
+  font-weight: 500;
+  text-shadow: 0 1px 3px rgba(15, 23, 42, 0.4);
 }
+
+/* Hide the old big yellow restore button that was in the middle */
+.restore-wrapper,
+.restore-btn,
+.restore-meta {
+  display: none !important;
+}
+
 
 /* -------------------------------
    CHART 1  STYLES
